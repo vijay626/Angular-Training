@@ -17,9 +17,16 @@ export class Credential  {
 export class SignInComponent {
 
   isValidUser:boolean=false;
-  user: Credential=new Credential("ravi.tambade@transflower.in","seed");
+  user: Credential=new Credential("vijay.kumar@gmail.com","seed");
  
+  //Constructor 
   constructor(private svc:AuthService) {    }  //DI
 
  
+
+  onSubmit(form: any): void {
+   this.isValidUser=this.svc.validate(form.userEmail,form.userPassword);
+   if(this.isValidUser){ console.log("Valid User !"); }
+   else{ console.log("Invalid User !"); }   
+  }
 }

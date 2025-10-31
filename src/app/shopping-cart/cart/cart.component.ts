@@ -12,14 +12,38 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './cart.component.css'
 })
 export class CartComponent {
- cartItems: CartItem[] = [];
-  totalPrice = 0;
+ cartItems = [
+    { name: 'rose', price: 15, quantity: 2, image: '/assets/images/rose.jpg' },
+    { name: 'lotus', price: 30, quantity: 4, image: '/assets/images/lotus.jpg' },
+  ];
+  totalAmount = 0;
 
+  ngOnInit(): void {
+    this.updateTotal();
+  }
   constructor() {}
 
   loadCart() {}
 
-  removeItem(id: number) { }
+   removeItem(index: number) {
+    this.cartItems.splice(index, 1);
+  }
 
-  clearCart() { }
+  // 🔄 Recalculate total when quantity changes
+  getCartTotal(): number {
+    return this.cartItems.reduce(
+      (sum, item) => sum + item.price * item.quantity,
+      0
+    );
+  }
+
+  // 🧹 Clear all products
+  clearCart() {
+    this.cartItems = [];
+  }
+
+  // (Optional) update UI on manual quantity change
+  updateTotal() {
+    this.cartItems = [...this.cartItems];
+  }
 }
